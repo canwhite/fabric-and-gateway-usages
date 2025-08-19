@@ -13,7 +13,7 @@ import (
 // NewGrpcConnection creates a new gRPC client connection to the gateway
 func NewGrpcConnection() (*grpc.ClientConn, error) {
 	// Load TLS certificate for peer0.org1.example.com
-	tlsCertificatePEM, err := os.ReadFile("/Users/zack/Desktop/fabric-and-gateway-usages/test-network/organizations/peerOrganizations/org1.example.com/tlsca/tlsca.org1.example.com-cert.pem")
+	tlsCertificatePEM, err := os.ReadFile("../test-network/organizations/peerOrganizations/org1.example.com/tlsca/tlsca.org1.example.com-cert.pem")
 	if err != nil {
 		return nil, fmt.Errorf("failed to read TLS certificate: %w", err)
 	}
@@ -34,7 +34,7 @@ func NewGrpcConnection() (*grpc.ClientConn, error) {
 // NewIdentity creates a client identity for this Gateway connection using an X.509 certificate
 func NewIdentity() *identity.X509Identity {
 	// Load client certificate for User1@org1.example.com
-	certificatePEM, err := os.ReadFile("/Users/zack/Desktop/fabric-and-gateway-usages/test-network/organizations/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/signcerts/User1@org1.example.com-cert.pem")
+	certificatePEM, err := os.ReadFile("../test-network/organizations/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/signcerts/User1@org1.example.com-cert.pem")
 	if err != nil {
 		panic(fmt.Errorf("failed to read certificate: %w", err))
 	}
@@ -55,7 +55,7 @@ func NewIdentity() *identity.X509Identity {
 // NewSign creates a function that generates a digital signature from a message digest using a private key
 func NewSign() identity.Sign {
 	// Load private key for User1@org1.example.com
-	privateKeyPEM, err := os.ReadFile("/Users/zack/Desktop/fabric-and-gateway-usages/test-network/organizations/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/keystore/priv_sk")
+	privateKeyPEM, err := os.ReadFile("../test-network/organizations/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/keystore/priv_sk")
 	if err != nil {
 		panic(fmt.Errorf("failed to read private key: %w", err))
 	}
