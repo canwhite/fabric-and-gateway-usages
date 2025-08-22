@@ -134,6 +134,12 @@
          sign := NewSign()
 
          // 4. 创建网关连接
+         // 签名和验签过程说明：
+         // 1. 签名（sign）是在客户端侧完成的。通过 NewSign() 创建的签名函数，会用用户私钥对交易消息进行数字签名。
+         //    这个签名函数会被 client.WithSign(sign) 传递给 Gateway，所有需要签名的消息（如提交交易、背书请求等）都会自动调用该函数进行签名。
+         // 2. 验签（verify）是在 Fabric 节点（Peer/Orderer）侧完成的。节点收到带有签名的消息后，会用你在 NewIdentity() 提供的证书（公钥）进行验签，
+         //    验证签名的合法性和消息的完整性，确保消息确实来自该身份且未被篡改。
+         // 3. 你无需手动写验签逻辑，Fabric 网络会自动完成验签。
          gateway, err := client.Connect(
              id,
              client.WithSign(sign),
