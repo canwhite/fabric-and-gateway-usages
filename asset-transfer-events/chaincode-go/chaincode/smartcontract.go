@@ -65,6 +65,7 @@ func (s *SmartContract) ReadAsset(ctx contractapi.TransactionContextInterface, i
 		return nil, err
 	}
 
+	//Unmarshal需要将解析的值给到一个地址
 	var asset Asset
 	err = json.Unmarshal(assetJSON, &asset)
 	if err != nil {
@@ -81,7 +82,7 @@ func (s *SmartContract) UpdateAsset(ctx contractapi.TransactionContextInterface,
 		return err
 	}
 
-	// overwriting original asset with new asset
+	// TODO，PutState之前需要先Marshal一下
 	asset := Asset{
 		ID:             id,
 		Color:          color,
@@ -94,6 +95,7 @@ func (s *SmartContract) UpdateAsset(ctx contractapi.TransactionContextInterface,
 		return err
 	}
 
+	//实际上就多了一个这个
 	ctx.GetStub().SetEvent("UpdateAsset", assetJSON)
 	return ctx.GetStub().PutState(id, assetJSON)
 }
