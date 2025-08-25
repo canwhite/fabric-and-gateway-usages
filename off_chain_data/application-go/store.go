@@ -28,7 +28,8 @@ func (ocs *offChainStore) write(data ledgerUpdate) error {
 	if err := ocs.simulateFailureIfRequired(); err != nil {
 		return err
 	}
-
+	
+	//这里的ocs是什么？
 	writes, err := ocs.marshal(data.Writes)
 	if err != nil {
 		return err
@@ -63,11 +64,12 @@ func (ocs *offChainStore) marshal(writes []write) (string, error) {
 }
 
 func (ocs *offChainStore) persist(marshaledWrites string) error {
+	//打开文件
 	f, err := os.OpenFile(ocs.path, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
 		return err
 	}
-
+	//写入
 	if _, writeErr := f.Write([]byte(marshaledWrites)); writeErr != nil {
 		if closeErr := f.Close(); closeErr != nil {
 			return fmt.Errorf("write error: %v, close error: %v", writeErr, closeErr)

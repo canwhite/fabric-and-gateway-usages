@@ -42,6 +42,7 @@ func (s *SmartContract) CreateAsset(ctx contractapi.TransactionContextInterface,
 		return err
 	}
 
+	//注意叫做SetEvent
 	ctx.GetStub().SetEvent("CreateAsset", assetJSON)
 	return ctx.GetStub().PutState(id, assetJSON)
 }
